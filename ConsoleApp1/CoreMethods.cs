@@ -1,35 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace Stack
 {
-    class CoreMethods : ICoreMethods
+    public class CoreMethods : ICoreMethods
     {
         
         Stack<int> MyStack = new Stack<int>();
-        ICalculator calc = new Calculator();
 
         //Pop - Removes and returns items from the top of the stack.
         public int PopItem() {
-            Console.WriteLine("");
-            int topOfStack = MyStack.Pop();
-            Console.WriteLine(topOfStack);
-            
-            return topOfStack;
+            return MyStack.Pop(); ;
         }
 
 
         //Peak - Returns the top item from the stack.
         public int PeakItem()
-        {
-            Console.WriteLine("");
-            int peeked = MyStack.Peek();//Peek is top
-            Console.WriteLine(peeked);
-            return peeked;
-            
-
+        { 
+            return MyStack.Peek();
         }
 
 
@@ -39,7 +30,6 @@ namespace Stack
             foreach (int i in MyStack)
             {
                 Console.WriteLine(i);
-
             }
         }
 
@@ -54,8 +44,6 @@ namespace Stack
         // Clear - Removes all items from the stack.
         public void ClearItems()
         {
-            Console.WriteLine("");
-
             MyStack.Clear();
             Console.WriteLine("Zero Items in the stack");
             Console.WriteLine("");
@@ -72,67 +60,81 @@ namespace Stack
         }
         public void AdditionOf2() {
             Console.WriteLine("");
-            var item1 = MyStack.Pop(); 
-            var item2 = MyStack.Pop();
-            int sum = calc.Add(item1, item2);
+            var item1 = PopItem(); 
+            var item2 = PopItem();
+            int sum = item1 + item2;
             AddAndPush(sum);
             Console.WriteLine("Added Result: " + sum);
         }
         public void SubtractionOf2()
         {
             Console.WriteLine("");
-            var item1 = MyStack.Pop(); 
-            var item2 = MyStack.Pop(); 
-            var substract =  calc.Substract(item1, item2);
-            AddAndPush(substract);
-            Console.WriteLine("Substract Result: " + substract);
+            var item1 = PopItem();
+            var item2 = PopItem();
+
+                var substract = item1 - item2;
+                AddAndPush(substract);
+
+                Console.WriteLine("Substract Result: " + substract); 
+            
         
         }
         public void MultiplicationOf2()
         {
             Console.WriteLine("");
-            var item1 = MyStack.Pop(); 
-            var item2 = MyStack.Pop(); 
-            var multiply = calc.Multiply(item1, item2);
+            var item1 = PopItem(); 
+            var item2 = PopItem(); 
+            var multiply = item1 * item2;
+            AddAndPush(multiply);
             Console.WriteLine("Multiply Result: " + multiply);
             
         }
-        public void DivisionOf2()
+        public int DivisionOf2()
         {
             Console.WriteLine("");
-            var item1 = MyStack.Pop(); 
-            var item2 = MyStack.Pop();
-            var divide = calc.Divide(item1, item2);
-            if(divide != null)
-            Console.WriteLine("Divide Result: " + divide);
-           
+            var item1 = PopItem();
+            if (PeakItem() == 0)
+            {
+                AddAndPush(item1);
+                throw new InvalidDataException("You can't devide from zero!");
+                
+            }
+            else
+            {
+
+                var item2 = PopItem();
+                var divide = item1 / item2;
+                AddAndPush(divide);
+                Console.WriteLine("Divide Result: " + divide);
+                return divide;
+            }
         }
 
-        public void MultiplicationOfAllStack()
+        public int MultiplicationOfAllStack()
         {
             Console.WriteLine("");
             int multofAll =1;
             foreach (int i in MyStack)
             {
 
-                multofAll = calc.Multiply(multofAll, i);
+                multofAll =multofAll * i;
                 
             }
             Console.WriteLine("Equals to " + multofAll);
-            
+            return multofAll;
         }
-        public void AdditionOfAllStack()
+        public int AdditionOfAllStack()
         {
             Console.WriteLine("");
             int sumOfAll = 0;
             foreach (int i in MyStack)
             {
 
-                sumOfAll = calc.Multiply(sumOfAll, i);
+                sumOfAll = sumOfAll + i;
 
             }
             Console.WriteLine("Equals to " + sumOfAll);
-
+            return sumOfAll;
         }
 
 

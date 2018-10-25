@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Stack
 {
-    interface ICoreMethods
+    public interface ICoreMethods
     {
         int PopItem();
         int PeakItem();
@@ -15,9 +15,9 @@ namespace Stack
         void AdditionOf2();
         void SubtractionOf2();
         void MultiplicationOf2();
-        void DivisionOf2();
-        void MultiplicationOfAllStack();
-        void AdditionOfAllStack();
+        int DivisionOf2();
+        int MultiplicationOfAllStack();
+        int AdditionOfAllStack();
         void Menu();
     }
 }
